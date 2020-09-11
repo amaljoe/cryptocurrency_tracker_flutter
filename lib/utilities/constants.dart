@@ -9,10 +9,12 @@ final kTitleTextStyle = GoogleFonts.bebasNeue(
 );
 
 final kChatTextStyle = GoogleFonts.roboto(
-  fontSize: 16,
-  color: Colors.black,
+  fontSize: 18,
+  fontWeight: FontWeight.normal,
 );
 
 final kBoxShadow = [
   BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 6)
 ];
+
+enum MessageType { me, you }
