@@ -1,5 +1,6 @@
 import 'package:cryptocurrency_tracker_flutter/components/bottom_chat.dart';
 import 'package:cryptocurrency_tracker_flutter/components/chat_message.dart';
+import 'package:cryptocurrency_tracker_flutter/utilities/chat_brain.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/constants.dart';
 
@@ -11,32 +12,46 @@ class CurrencyPage extends StatefulWidget {
 
 class _CurrencyPageState extends State<CurrencyPage> {
   List<ChatMessage> chatMessages = [];
+  String enteredText;
+  ChatBrain chatBrain;
 
   @override
   void initState() {
     super.initState();
-    updateList();
+    chatBrain = ChatBrain();
+    updateListSuccess();
+  }
+
+  void handleMessage() {
+    bool success = chatBrain.handleMessage(enteredText);
+    if (success) {
+      updateListSuccess();
+    } else {}
+  }
+
+  void updateListSuccess() {
+    switch (chatBrain.question) {
+      case Question.add:
+        setState(() {
+          chatMessages.insert(
+              0,
+              ChatMessage(
+                text: 'Do you want to add a new crypto currency ?',
+                messageType: MessageType.you,
+              ));
+        });
+        break;
+      case Question.crypto:
+        chatMessages.insert(
+            0,
+            ChatMessage(
+              text: 'Which crypto currency do you want to add ?',
+              messageType: MessageType.you,
+            ));
+    }
   }
 
   void updateList() {
-    chatMessages.insert(
-        0,
-        ChatMessage(
-          text: 'Do you want to add a new crypto currency ?',
-          messageType: MessageType.you,
-        ));
-    chatMessages.insert(
-        0,
-        ChatMessage(
-          text: 'YES',
-          messageType: MessageType.me,
-        ));
-    chatMessages.insert(
-        0,
-        ChatMessage(
-          text: 'Which cryptocurrency do you want to add ?',
-          messageType: MessageType.you,
-        ));
     chatMessages.insert(
         0,
         ChatMessage(
@@ -90,9 +105,19 @@ class _CurrencyPageState extends State<CurrencyPage> {
           ),
         ),
         BottomChat(
-          onPressed: () {},
+          onPressed: () {
+            setState(() {
+              chatMessages.insert(
+                  0,
+                  ChatMessage(
+                    text:
+                        'In which real world currency do you want to know the price in ?',
+                    messageType: MessageType.you,
+                  ));
+            });
+          },
           onTextChanged: (value) {
-            print(value);
+            enteredText = value;
           },
         ),
       ]),

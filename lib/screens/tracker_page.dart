@@ -1,5 +1,5 @@
 import 'package:cryptocurrency_tracker_flutter/components/tracker_item_widget.dart';
-import 'package:cryptocurrency_tracker_flutter/utilities/database.dart';
+import 'package:cryptocurrency_tracker_flutter/utilities/tracker_brain.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/tracker_item.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ class _TrackerPageState extends State<TrackerPage> {
   }
 
   void getTrackerItems() {
-    trackerItems = TrackerBrain().trackerItems;
+    trackerItems = TrackerBrain.trackerItems;
   }
 
   @override
