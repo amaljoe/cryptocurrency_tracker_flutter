@@ -1,4 +1,5 @@
 import 'package:cryptocurrency_tracker_flutter/components/tracker_item_widget.dart';
+import 'package:cryptocurrency_tracker_flutter/screens/currency_page.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/tracker_brain.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/tracker_item.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +32,25 @@ class _TrackerPageState extends State<TrackerPage> {
       )),
       body: Container(
         padding: EdgeInsets.all(8.0),
-        child: Column(
-          children: [TrackerItemWidget(text: '1 BTC = 7,19,000 INR')],
+        child: ListView.builder(
+          itemCount: TrackerBrain.trackerItems.length,
+          itemBuilder: (context, index) {
+            String cryptoCurrency =
+                TrackerBrain.trackerItems[index].cryptoCurrency;
+            String fiatCurrency = TrackerBrain.trackerItems[index].fiatCurrency;
+            String text = '1 $cryptoCurrency = 7,19,000 $fiatCurrency';
+            return TrackerItemWidget(
+              text: text,
+            );
+          },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, CurrencyPage.id).then((value) {
+            setState(() {});
+          });
+        },
       ),
     );
   }

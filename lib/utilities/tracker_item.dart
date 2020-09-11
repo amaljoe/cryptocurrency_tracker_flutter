@@ -6,7 +6,7 @@ class TrackerItem {
   String fiatCurrency;
 
   TrackerItem({
-    @required this.id,
+    this.id,
     @required this.cryptoCurrency,
     @required this.fiatCurrency,
   });

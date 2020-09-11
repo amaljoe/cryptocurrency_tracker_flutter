@@ -24,4 +24,4 @@ final kBoxShadow = [
 
 enum MessageType { me, you }
 
-enum Question { add, crypto, fiat, ans }
+enum Question { add, crypto, fiat }

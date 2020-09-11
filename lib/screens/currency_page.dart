@@ -13,70 +13,10 @@ class CurrencyPage extends StatefulWidget {
 class _CurrencyPageState extends State<CurrencyPage> {
   List<ChatMessage> chatMessages = [];
   String enteredText;
-  ChatBrain chatBrain;
-
-  @override
-  void initState() {
-    super.initState();
-    chatBrain = ChatBrain();
-    updateListSuccess();
-  }
+  ChatBrain chatBrain = ChatBrain();
 
   void handleMessage() {
-    bool success = chatBrain.handleMessage(enteredText);
-    if (success) {
-      updateListSuccess();
-    } else {}
-  }
-
-  void updateListSuccess() {
-    switch (chatBrain.question) {
-      case Question.add:
-        setState(() {
-          chatMessages.insert(
-              0,
-              ChatMessage(
-                text: 'Do you want to add a new crypto currency ?',
-                messageType: MessageType.you,
-              ));
-        });
-        break;
-      case Question.crypto:
-        chatMessages.insert(
-            0,
-            ChatMessage(
-              text: 'Which crypto currency do you want to add ?',
-              messageType: MessageType.you,
-            ));
-    }
-  }
-
-  void updateList() {
-    chatMessages.insert(
-        0,
-        ChatMessage(
-          text: 'BTC',
-          messageType: MessageType.me,
-        ));
-    chatMessages.insert(
-        0,
-        ChatMessage(
-          text:
-              'In which real world currency do you want to know the price in ?',
-          messageType: MessageType.you,
-        ));
-    chatMessages.insert(
-        0,
-        ChatMessage(
-          text: 'INR',
-          messageType: MessageType.me,
-        ));
-    chatMessages.insert(
-        0,
-        ChatMessage(
-          text: '1 BTC = 7,19,000 INR',
-          messageType: MessageType.you,
-        ));
+    chatBrain.handleMessage(enteredText);
   }
 
   @override
@@ -99,21 +39,18 @@ class _CurrencyPageState extends State<CurrencyPage> {
       ),
       body: Column(children: [
         Expanded(
-          child: ListView(
-            children: chatMessages,
+          child: ListView.builder(
             reverse: true,
+            itemCount: chatBrain.chatMessages.length,
+            itemBuilder: (context, index) {
+              return chatBrain.chatMessages[index];
+            },
           ),
         ),
         BottomChat(
           onPressed: () {
             setState(() {
-              chatMessages.insert(
-                  0,
-                  ChatMessage(
-                    text:
-                        'In which real world currency do you want to know the price in ?',
-                    messageType: MessageType.you,
-                  ));
+              chatBrain.handleMessage(enteredText);
             });
           },
           onTextChanged: (value) {

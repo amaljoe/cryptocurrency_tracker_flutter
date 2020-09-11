@@ -1,66 +1,145 @@
 import 'package:cryptocurrency_tracker_flutter/utilities/constants.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/tracker_brain.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/tracker_item.dart';
+import 'package:cryptocurrency_tracker_flutter/components/chat_message.dart';
+import 'package:flutter/material.dart';
 
 class ChatBrain {
   Question question = Question.add;
-  String msg;
-  String crypto;
-  String fiat;
-  TrackerItem trackerItem;
+  String message;
+  String cryptoCurrency;
+  String fiatCurrency;
+  List<Widget> chatMessages = [
+    ChatMessage(
+      text: 'Do you want to add a new crypto currency ?',
+      messageType: MessageType.you,
+    )
+  ];
 
-  bool addCrypto() {
-    if (msg.toLowerCase() == 'yes') {
+  void addCrypto() {
+    if (message.toLowerCase() == 'yes') {
+      chatMessages.insert(
+        0,
+        ChatMessage(
+          text: 'Which crypto currency do you want to add ?',
+          messageType: MessageType.you,
+        ),
+      );
       question = Question.crypto;
-      return true;
+    } else if (message.toLowerCase() == 'no') {
+      chatMessages.insert(
+        0,
+        ChatMessage(
+          text: 'Okay',
+          messageType: MessageType.you,
+        ),
+      );
+    } else {
+      chatMessages.insert(
+        0,
+        ChatMessage(
+          text: 'Yes or No ?',
+          messageType: MessageType.you,
+        ),
+      );
     }
-    return false;
   }
 
-  bool whichCrypto() {
-    msg = msg.toUpperCase();
+  void whichCrypto() {
+    message = message.toUpperCase();
     for (String item in TrackerBrain.cryptoCurrencies) {
-      if (item == msg) {
-        crypto = msg;
+      if (item == message) {
+        cryptoCurrency = message;
+        chatMessages.insert(
+          0,
+          ChatMessage(
+            text:
+                'In which real world currency do you want to know the price in ?',
+            messageType: MessageType.you,
+          ),
+        );
         question = Question.fiat;
-        return true;
+        return;
       }
     }
-    return false;
+    chatMessages.insert(
+      0,
+      ChatMessage(
+        text: 'Crypto currency not found, please recheck and try again.',
+        messageType: MessageType.you,
+      ),
+    );
   }
 
-  bool whichFiat() {
-    msg = msg.toUpperCase();
+  void whichFiat() {
+    message = message.toUpperCase();
     for (String item in TrackerBrain.fiatCurrencies) {
-      if (item == msg) {
-        fiat = msg;
-        question = Question.ans;
-        return true;
+      if (item == message) {
+        fiatCurrency = message;
+        chatMessages.insert(
+          0,
+          ChatMessage(
+            text: 'Crypto currency successfully added to the list',
+            messageType: MessageType.you,
+          ),
+        );
+        chatMessages.insert(
+          0,
+          ChatMessage(
+            text: '1 BTC = 7,19,000 INR',
+            messageType: MessageType.you,
+          ),
+        );
+        chatMessages.insert(
+          0,
+          ChatMessage(
+            text: 'Do you want to add another crypto currency?',
+            messageType: MessageType.you,
+          ),
+        );
+        question = Question.add;
+        updateTrackerList();
+        return;
       }
     }
-    return false;
+    chatMessages.insert(
+      0,
+      ChatMessage(
+        text: 'Currency not found, please recheck and try again.',
+        messageType: MessageType.you,
+      ),
+    );
   }
 
-  bool answer() {}
+  void updateTrackerList() {
+    TrackerBrain.trackerItems.add(TrackerItem(
+        cryptoCurrency: cryptoCurrency, fiatCurrency: fiatCurrency));
+  }
 
-  bool handleMessage(String msg) {
-    this.msg = msg != null ? msg : '';
-    bool status = false;
+  void handleMessage(String message) {
+    if (message == null || message == '') {
+      return;
+    }
+    this.message = message;
+    chatMessages.insert(
+      0,
+      ChatMessage(
+        text: message,
+        messageType: MessageType.me,
+      ),
+    );
     switch (question) {
       case Question.add:
-        status = addCrypto();
-        return status;
+        addCrypto();
+        return;
       case Question.crypto:
-        status = whichCrypto();
-        return status;
+        whichCrypto();
+        return;
       case Question.fiat:
-        status = whichFiat();
-        return status;
-      case Question.ans:
-        status = answer();
-        return status;
+        whichFiat();
+        return;
       default:
-        return status;
+        return;
     }
   }
 }
