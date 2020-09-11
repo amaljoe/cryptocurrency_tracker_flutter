@@ -5,7 +5,9 @@ import 'screens/settings_page.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: TrackerPage.id,
+    theme: ThemeData(
+        primaryColor: Colors.lightBlue, scaffoldBackgroundColor: Colors.white),
+    initialRoute: CurrencyPage.id,
     routes: {
       CurrencyPage.id: (context) => CurrencyPage(),
       TrackerPage.id: (context) => TrackerPage(),

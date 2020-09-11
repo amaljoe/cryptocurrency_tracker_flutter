@@ -1,4 +1,6 @@
+import 'package:cryptocurrency_tracker_flutter/components/bottom_chat.dart';
 import 'package:flutter/material.dart';
+import 'package:cryptocurrency_tracker_flutter/utilities/constants.dart';
 
 class CurrencyPage extends StatefulWidget {
   static String id = 'currency_page';
@@ -11,9 +13,26 @@ class _CurrencyPageState extends State<CurrencyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-        'Currency Page',
-      )),
+        leading: Icon(
+          Icons.arrow_back_ios,
+          color: Colors.white,
+          size: 24,
+        ),
+        centerTitle: true,
+        title: Text(
+          'CRYPTOTRACKER',
+          style: kTitleTextStyle,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+        ),
+      ),
+      body: Column(children: [
+        Expanded(
+          child: Container(),
+        ),
+        BottomChat(),
+      ]),
     );
   }
 }
