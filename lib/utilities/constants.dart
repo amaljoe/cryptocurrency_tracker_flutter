@@ -13,6 +13,11 @@ final kChatTextStyle = GoogleFonts.roboto(
   fontWeight: FontWeight.normal,
 );
 
+final kTrackItemTextStyle = GoogleFonts.roboto(
+  fontSize: 26,
+  fontWeight: FontWeight.bold,
+);
+
 final kBoxShadow = [
   BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 6)
 ];

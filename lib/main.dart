@@ -7,7 +7,7 @@ void main() {
   runApp(MaterialApp(
     theme: ThemeData(
         primaryColor: Colors.lightBlue, scaffoldBackgroundColor: Colors.white),
-    initialRoute: CurrencyPage.id,
+    initialRoute: TrackerPage.id,
     routes: {
       CurrencyPage.id: (context) => CurrencyPage(),
       TrackerPage.id: (context) => TrackerPage(),
