@@ -29,9 +29,47 @@ class _CurrencyPageState extends State<CurrencyPage> {
       ),
       body: Column(children: [
         Expanded(
-          child: Container(),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Container(),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          boxShadow: kBoxShadow,
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        child: Text(
+                          'Do you want to add new crypto currency ?',
+                          style: kChatTextStyle,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-        BottomChat(),
+        BottomChat(
+          onPressed: () {},
+          onTextChanged: (value) {
+            print(value);
+          },
+        ),
       ]),
     );
   }

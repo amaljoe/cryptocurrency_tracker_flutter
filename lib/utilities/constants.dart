@@ -7,3 +7,12 @@ final kTitleTextStyle = GoogleFonts.bebasNeue(
   fontWeight: FontWeight.w300,
   color: Colors.white,
 );
+
+final kChatTextStyle = GoogleFonts.roboto(
+  fontSize: 16,
+  color: Colors.black,
+);
+
+final kBoxShadow = [
+  BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 6)
+];
