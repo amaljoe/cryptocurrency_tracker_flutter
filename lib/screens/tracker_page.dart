@@ -1,5 +1,6 @@
 import 'package:cryptocurrency_tracker_flutter/components/tracker_item_widget.dart';
 import 'package:cryptocurrency_tracker_flutter/screens/currency_page.dart';
+import 'package:cryptocurrency_tracker_flutter/screens/settings_page.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/constants.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/tracker_brain.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/tracker_item.dart';
@@ -44,7 +45,9 @@ class _TrackerPageState extends State<TrackerPage> {
         appBar: AppBar(
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, SettingsPage.id);
+              },
               icon: Icon(
                 Icons.settings,
                 color: Colors.white,
@@ -72,7 +75,9 @@ class _TrackerPageState extends State<TrackerPage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, SettingsPage.id);
+            },
             icon: Icon(
               Icons.settings,
               color: Colors.white,

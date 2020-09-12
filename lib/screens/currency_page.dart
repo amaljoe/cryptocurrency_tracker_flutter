@@ -15,10 +15,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
   String enteredText;
   TextEditingController messageController = TextEditingController();
   ChatBrain chatBrain = ChatBrain();
-
-  void handleMessage() {
-    chatBrain.handleMessage(enteredText);
-  }
+  
 
   @override
   Widget build(BuildContext context) {
