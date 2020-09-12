@@ -4,6 +4,7 @@ class TrackerItem {
   int id;
   String cryptoCurrency;
   String fiatCurrency;
+  int convertedPrice;
 
   TrackerItem({
     this.id,

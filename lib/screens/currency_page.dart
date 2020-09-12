@@ -23,10 +23,15 @@ class _CurrencyPageState extends State<CurrencyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
-          Icons.arrow_back_ios,
-          color: Colors.white,
-          size: 24,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+            size: 24,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         centerTitle: true,
         title: Text(

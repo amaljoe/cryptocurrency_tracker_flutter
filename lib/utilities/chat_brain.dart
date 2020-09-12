@@ -86,13 +86,6 @@ class ChatBrain {
         chatMessages.insert(
           0,
           ChatMessage(
-            text: '1 BTC = 7,19,000 INR',
-            messageType: MessageType.you,
-          ),
-        );
-        chatMessages.insert(
-          0,
-          ChatMessage(
             text: 'Do you want to add another crypto currency?',
             messageType: MessageType.you,
           ),
