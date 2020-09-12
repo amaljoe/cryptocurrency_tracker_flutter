@@ -13,6 +13,7 @@ class CurrencyPage extends StatefulWidget {
 class _CurrencyPageState extends State<CurrencyPage> {
   List<ChatMessage> chatMessages = [];
   String enteredText;
+  TextEditingController messageController = TextEditingController();
   ChatBrain chatBrain = ChatBrain();
 
   void handleMessage() {
@@ -53,8 +54,10 @@ class _CurrencyPageState extends State<CurrencyPage> {
           ),
         ),
         BottomChat(
+          controller: messageController,
           onPressed: () {
             setState(() {
+              messageController.clear();
               chatBrain.handleMessage(enteredText);
             });
           },

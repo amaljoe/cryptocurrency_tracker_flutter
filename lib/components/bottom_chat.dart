@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 class BottomChat extends StatelessWidget {
   final Function onTextChanged;
   final Function onPressed;
+  final TextEditingController controller;
 
-  BottomChat({@required this.onTextChanged, @required this.onPressed});
+  BottomChat(
+      {@required this.onTextChanged,
+      @required this.onPressed,
+      @required this.controller});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,6 +28,7 @@ class BottomChat extends StatelessWidget {
           children: [
             Container(
               child: TextField(
+                controller: controller,
                 onChanged: onTextChanged,
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(left: 20, bottom: 10),
