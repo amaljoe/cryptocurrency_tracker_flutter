@@ -27,7 +27,10 @@ class TrackerItemWidget extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: Icon(Icons.delete),
+            icon: Icon(
+              Icons.delete,
+              color: Colors.black45,
+            ),
             onPressed: onPressed,
           )
         ],

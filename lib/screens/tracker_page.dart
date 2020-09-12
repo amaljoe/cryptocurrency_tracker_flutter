@@ -1,11 +1,9 @@
 import 'package:cryptocurrency_tracker_flutter/components/tracker_item_widget.dart';
 import 'package:cryptocurrency_tracker_flutter/screens/currency_page.dart';
-import 'package:cryptocurrency_tracker_flutter/screens/settings_page.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/constants.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/tracker_brain.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/tracker_item.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/networking.dart';
 
 class TrackerPage extends StatefulWidget {
@@ -22,6 +20,12 @@ class _TrackerPageState extends State<TrackerPage> {
   void initState() {
     super.initState();
     getConversionRate();
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    print('deactivated');
   }
 
   void getConversionRate() async {
@@ -43,17 +47,6 @@ class _TrackerPageState extends State<TrackerPage> {
     if (showSpinner == true) {
       return Scaffold(
         appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, SettingsPage.id);
-              },
-              icon: Icon(
-                Icons.settings,
-                color: Colors.white,
-              ),
-            )
-          ],
           centerTitle: true,
           title: Text(
             'CRYPTOTRACKER',
@@ -76,10 +69,10 @@ class _TrackerPageState extends State<TrackerPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, SettingsPage.id);
+              getConversionRate();
             },
             icon: Icon(
-              Icons.settings,
+              Icons.refresh,
               color: Colors.white,
             ),
           )
