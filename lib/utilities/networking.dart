@@ -4,7 +4,7 @@ import 'package:cryptocurrency_tracker_flutter/utilities/tracker_item.dart';
 import 'package:http/http.dart' as http;
 
 const String url = 'https://rest.coinapi.io/v1/exchangerate';
-const String apiKey = 'F37A1457-5EA1-427D-A95B-0F9CDCA02C67';
+const String apiKey = '47E2B57C-0DCF-4626-85F1-7E1308B9634E';
 
 class NetworkHelper {
   static Future<void> getConversion(List<TrackerItem> trackerItems) async {

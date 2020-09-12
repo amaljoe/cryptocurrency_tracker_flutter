@@ -1,6 +1,8 @@
 import 'package:cryptocurrency_tracker_flutter/components/bottom_chat.dart';
 import 'package:cryptocurrency_tracker_flutter/components/chat_message.dart';
+import 'package:cryptocurrency_tracker_flutter/components/suggestion_item.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/chat_brain.dart';
+import 'package:cryptocurrency_tracker_flutter/utilities/tracker_brain.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/constants.dart';
 
@@ -14,8 +16,14 @@ class _CurrencyPageState extends State<CurrencyPage> {
   List<ChatMessage> chatMessages = [];
   String enteredText;
   TextEditingController messageController = TextEditingController();
-  ChatBrain chatBrain = ChatBrain();
-  
+  ChatBrain chatBrain;
+
+  void initState() {
+    super.initState();
+    chatBrain = ChatBrain(onEnd: () {
+      Navigator.pop(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,18 +58,58 @@ class _CurrencyPageState extends State<CurrencyPage> {
             },
           ),
         ),
-        BottomChat(
-          controller: messageController,
-          onPressed: () {
-            setState(() {
-              messageController.clear();
-              chatBrain.handleMessage(enteredText);
-            });
-          },
-          onTextChanged: (value) {
-            enteredText = value;
-          },
-        ),
+        Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              color: Colors.black12,
+              height: 130,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      reverse: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: chatBrain.getSuggestions().length,
+                      itemBuilder: (context, index) {
+                        return SuggestionItem(
+                          text: chatBrain
+                              .getSuggestions()
+                              .reversed
+                              .elementAt(index),
+                          onPressed: () {
+                            setState(() {
+                              enteredText = chatBrain
+                                  .getSuggestions()
+                                  .reversed
+                                  .elementAt(index);
+                              chatBrain.handleMessage(enteredText);
+                            });
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  Container(
+                    height: 80,
+                  ),
+                ],
+              ),
+            ),
+            BottomChat(
+              controller: messageController,
+              onPressed: () {
+                setState(() {
+                  messageController.clear();
+                  chatBrain.handleMessage(enteredText);
+                });
+              },
+              onTextChanged: (value) {
+                enteredText = value;
+              },
+            ),
+          ],
+        )
       ]),
     );
   }

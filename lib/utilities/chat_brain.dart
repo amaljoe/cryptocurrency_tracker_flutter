@@ -5,6 +5,7 @@ import 'package:cryptocurrency_tracker_flutter/components/chat_message.dart';
 import 'package:flutter/material.dart';
 
 class ChatBrain {
+  final Function onEnd;
   Question question = Question.add;
   String message;
   String cryptoCurrency;
@@ -15,6 +16,8 @@ class ChatBrain {
       messageType: MessageType.you,
     )
   ];
+
+  ChatBrain({@required this.onEnd});
 
   void addCrypto() {
     if (message.toLowerCase() == 'yes') {
@@ -34,6 +37,8 @@ class ChatBrain {
           messageType: MessageType.you,
         ),
       );
+      question = Question.nil;
+      onEnd();
     } else {
       chatMessages.insert(
         0,
@@ -107,6 +112,19 @@ class ChatBrain {
   void updateTrackerList() {
     TrackerBrain.trackerItems.add(TrackerItem(
         cryptoCurrency: cryptoCurrency, fiatCurrency: fiatCurrency));
+  }
+
+  List<String> getSuggestions() {
+    switch (question) {
+      case Question.add:
+        return TrackerBrain.yesOrNo;
+      case Question.crypto:
+        return TrackerBrain.cryptoCurrencies;
+      case Question.fiat:
+        return TrackerBrain.fiatCurrencies;
+      default:
+        return [];
+    }
   }
 
   void handleMessage(String message) {
