@@ -2,7 +2,6 @@ import 'package:cryptocurrency_tracker_flutter/components/bottom_chat.dart';
 import 'package:cryptocurrency_tracker_flutter/components/chat_message.dart';
 import 'package:cryptocurrency_tracker_flutter/components/suggestion_item.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/chat_brain.dart';
-import 'package:cryptocurrency_tracker_flutter/utilities/tracker_brain.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptocurrency_tracker_flutter/utilities/constants.dart';
 
